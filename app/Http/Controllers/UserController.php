@@ -114,14 +114,12 @@ class UserController extends Controller
             $input = array_except($input,array('password'));    
         }
 
-
+        //dd($input);
         $user = User::find($id);
         $user->update($input);
         DB::table('model_has_roles')->where('model_id',$id)->delete();
-
-
-        $user->assignRole($request->input('roles'));
-
+        $data = $user->assignRole($request->input('roles'));
+        dd($data);
 
         return redirect()->route('users.index')
                         ->with('success','User updated successfully');
